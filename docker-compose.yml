@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  discovery-service:
+    build:
+      dockerfile: ../Dockerfile
+      context: ./discovery-service
+      args:
+        JAR_FILE_NAME: discovery-service-0.0.1-SNAPSHOT.jar
+    image: kageja/who-called-me/discovery-service
+    healthcheck:
+      test: "wget --spider -q http://localhost:8761/actuator/health || exit 1"
+      interval: 2s
+      timeout: 5s
+      start_period: 2s
+      retries: 10
+    networks:
+      - who-called-me-service-net
+
+  apigateway:
+    environment:
+      - SPRING_EUREKA_SERVER=discovery-service
+    build:
+      dockerfile: ../Dockerfile
+      context: ./springcloudgateway
+      args:
+        JAR_FILE_NAME: springcloudgateway-0.0.1-SNAPSHOT.jar
+    image: kageja/who-called-me/springcloudgateway
+    healthcheck:
+      test: "wget --spider -q http://localhost:8080/actuator/health || exit 1"
+      interval: 2s
+      timeout: 5s
+      start_period: 2s
+      retries: 10
+    depends_on:
+      - discovery-service
+    ports:
+      - "8080:8080"
+    networks:
+      - who-called-me-service-net
+
+  who-called-me:
+    environment:
+      - SPRING_EUREKA_SERVER=discovery-service
+    build:
+      dockerfile: ../Dockerfile
+      context: who-called-me-service
+      args:
+        JAR_FILE_NAME: who-called-me-0.0.1-SNAPSHOT.jar
+    image: kageja/who-called-me/who-called-me-service
+    healthcheck:
+      test: "wget --spider -q http://localhost:8038/actuator/health || exit 1"
+      interval: 2s
+      timeout: 5s
+      start_period: 2s
+      retries: 10
+    depends_on:
+      - discovery-service
+      - apigateway
+    networks:
+      - who-called-me-service-net
+
+networks:
+  who-called-me-service-net:
