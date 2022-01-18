@@ -11,8 +11,8 @@
     <groupId>com.muhendisbey.who-called-me</groupId>
     <artifactId>whocalledmeservice</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>producer</name>
-    <description>producer</description>
+    <name>whocalledmeservice</name>
+    <description>Who Calledme Service</description>
     <properties>
         <java.version>11</java.version>
         <spring-cloud.version>2020.0.4</spring-cloud.version>
@@ -25,6 +25,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
 <!--        <dependency>-->
 <!--            <groupId>org.springframework.cloud</groupId>-->

@@ -4,6 +4,9 @@
 */
 package com.muhendisbey.whocalledme.whocalledmeservice.service;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class CallerService implements ICallerService
 {
     @Override
@@ -12,6 +15,7 @@ public class CallerService implements ICallerService
         return null;
     }
 
+    /* NOTE: by default, this sends notification to user X */
     @Override
     public void call()
     {
