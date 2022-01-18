@@ -1,0 +1,55 @@
+# Web Server Config
+server:
+  port: ${SPRING_PORT:8080}
+#  ssl:
+#    enabled: true
+#    trust-store-password:
+#    trust-store:
+#    client-auth: want
+#    key-store-password:
+#    key-password:
+#    key-store:
+
+# Spring App Config
+spring:
+  application:
+    name: ${SPRING_APPNAME:springcloud-gateway}
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true # use netflix eureka discovery service
+          lower-case-service-id: true # this is important to find service name due to case sensitivity
+#          filters: #  if i open filters, take 404
+#            - name: LogFilter # if i define filer without name it starts
+#              args:
+#                name: EurekaGlobalLogFilter # it doesnt work
+      default-filters:
+        - LogFilter=GlobalLogFilter # it works
+        - PreFilter=TestPreFilterFirst
+      routes:
+        - id: dynamicRouteForProducer
+          # /api/v1/customer/info # uri doesnt consider after port. If u want to convert path u should use rewrite path
+          uri: http://localhost:8038/thisDoesntConsiderFromSpringCloudGateway
+          predicates:
+            - Path=/dynamicRouteProducer/api/v1/customer/info
+          filters:
+            - LogFilter=dynamicRouteForProducerLogFilter
+            - StripPrefix=1
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${SPRING_EUREKA_SERVER:localhost}:${SPRING_EUREKA_PORT:8761}/eureka
+    registry-fetch-interval-seconds: 3
+#    tls:
+#      enabled: true
+#      key-store:
+#      key-store-password:
+#      key-store-type:
+#      key-password:
+#      trust-store:
+#      trust-store-password:
+#      trust-store-type:
+

@@ -1,0 +1,13 @@
+# Web Server Config
+server:
+  port: ${SPRING_PORT:8038}
+
+# Spring App Config
+spring:
+  application:
+    name: ${SPRING_APPNAME:whocalledmeservice}
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${SPRING_EUREKA_SERVER:localhost}:${SPRING_EUREKA_PORT:8761}/eureka
