@@ -5,6 +5,7 @@
 package com.muhendisbey.whocalledme.whocalledmeservice.controller;
 
 import com.muhendisbey.whocalledme.whocalledmeservice.converter.IModelConverter;
+import com.muhendisbey.whocalledme.whocalledmeservice.dto.LoginDTO;
 import com.muhendisbey.whocalledme.whocalledmeservice.service.ICallerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,9 +29,9 @@ public class CallerController
 
     @PostMapping("/login")
     @ApiOperation("User can login and get websocket handler")
-    String login()
+    LoginDTO login()
     {
-        return service.login();
+        return modelConverter.toDto(service.login());
     }
 
     @PostMapping("/call")

@@ -7,18 +7,8 @@
 package com.muhendisbey.whocalledme.whocalledmeservice.controller;
 
 import io.swagger.annotations.Api;
-import org.springframework.stereotype.Controller;
-
-import javax.websocket.OnOpen;
-import javax.websocket.Session;
 
 @Api("WebSocket Communication Channel Controller")
-@Controller
 public class WebSocketController
 {
-    @OnOpen
-    public void onOpen(Session session)
-    {
-
-    }
 }

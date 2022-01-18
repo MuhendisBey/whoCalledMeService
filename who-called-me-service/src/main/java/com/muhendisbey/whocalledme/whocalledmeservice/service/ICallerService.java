@@ -4,8 +4,10 @@
 */
 package com.muhendisbey.whocalledme.whocalledmeservice.service;
 
+import com.muhendisbey.whocalledme.whocalledmeservice.model.LoginModel;
+
 public interface ICallerService
 {
-    String login();
+    LoginModel login();
     void call();
 }

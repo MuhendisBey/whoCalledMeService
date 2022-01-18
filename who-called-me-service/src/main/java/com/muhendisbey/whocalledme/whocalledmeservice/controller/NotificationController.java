@@ -6,6 +6,7 @@
 */
 package com.muhendisbey.whocalledme.whocalledmeservice.controller;
 
+import com.muhendisbey.whocalledme.whocalledmeservice.service.INotificationService;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,9 +18,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/v1/notification-center")
 public class NotificationController
 {
+    private final INotificationService notificationService;
+
+    public NotificationController(INotificationService notificationService)
+    {
+        this.notificationService = notificationService;
+    }
+
     @PostMapping("/send-read-report")
     public void sendReadReport(@RequestParam int id)
     {
-
+        notificationService.markAsRead();
     }
 }
