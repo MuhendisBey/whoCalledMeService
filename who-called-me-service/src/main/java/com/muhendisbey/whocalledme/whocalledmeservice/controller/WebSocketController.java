@@ -8,6 +8,7 @@ package com.muhendisbey.whocalledme.whocalledmeservice.controller;
 
 import io.swagger.annotations.Api;
 
+/* TODO: this is for web socket messaging controller */
 @Api("WebSocket Communication Channel Controller")
 public class WebSocketController
 {

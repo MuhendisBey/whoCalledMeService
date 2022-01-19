@@ -6,12 +6,11 @@
 package com.muhendisbey.whocalledme.whocalledmeservice.repository;
 
 import com.muhendisbey.whocalledme.whocalledmeservice.model.UserEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-/*
-* imagine that: you can extend this repo from extends PagingAndSortingRepository<CustomerEntity, Long>
-currently we get data as a mock for PoC
-*/
-public interface IUserRepo
+import java.util.Optional;
+
+public interface IUserRepo extends JpaRepository<UserEntity, Long>
 {
-    UserEntity findById(long id);
+    Optional<UserEntity> findByName(String name);
 }
