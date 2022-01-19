@@ -1,0 +1,35 @@
+== WHO CALLED ME SERVICE (IN-COMPLETE)
+
+= Build
+
+----
+You can easily build by using compose file.
+in root directory of projects
+
+```
+docker-compose -f ./docker-compose.yml build
+```
+
+or you can use direct docker compose for bring up, i have already push the image to docker hub
+----
+
+= Assumptions
+    => There are three pre-defined user.
+        user anakin with password 12345. it's admin.
+        user neo with password 1234. it's normal user.
+        user bruce with password 123. it's disabled user.
+    => You should use basic authentication method.
+    => Client has two interface websocket client and rest client.
+
+= Usage
+    => Directly call 8038 port. (pls. see the TODOS)
+    => User can login system with his mobile number by calling api/v1/caller/login endpoint.
+        ==> As a return type, channel id will be returned. User can try to connect web socket by using this channel.
+    => User can make call request with target user name by calling api/v1/caller/call endpoint.
+
+= TODOS
+    => Fix error on connecting web socket.
+    => Create Call history database.
+    => Calculate call count by using call history database.
+    => Make external Authentication
+    => Create write rule to apigateway for ws route predicate

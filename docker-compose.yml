@@ -3,7 +3,7 @@ version: '3.8'
 services:
   discovery-service:
     build:
-      dockerfile: ../Dockerfile
+      dockerfile: ../Dockerfile.build
       context: ./discovery-service
       args:
         JAR_FILE_NAME: discovery-service-0.0.1-SNAPSHOT.jar
@@ -21,7 +21,7 @@ services:
     environment:
       - SPRING_EUREKA_SERVER=discovery-service
     build:
-      dockerfile: ../Dockerfile
+      dockerfile: ../Dockerfile.build
       context: ./springcloudgateway
       args:
         JAR_FILE_NAME: springcloudgateway-0.0.1-SNAPSHOT.jar
@@ -43,7 +43,7 @@ services:
     environment:
       - SPRING_EUREKA_SERVER=discovery-service
     build:
-      dockerfile: ../Dockerfile
+      dockerfile: ../Dockerfile.build
       context: who-called-me-service
       args:
         JAR_FILE_NAME: who-called-me-0.0.1-SNAPSHOT.jar
@@ -57,6 +57,8 @@ services:
     depends_on:
       - discovery-service
       - apigateway
+    ports:
+      - "8038:8038"
     networks:
       - who-called-me-service-net
 
